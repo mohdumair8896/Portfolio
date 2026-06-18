@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import ContactDropdown from "./ContactDropdown";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -57,21 +59,24 @@ export default function Navbar() {
         </a>
 
         {/* Center Nav Links */}
-        <div className="hidden md:flex gap-1 ml-auto text-[14.5px]">
+        <div className="flex max-md:hidden gap-1 ml-auto text-[14.5px]">
           {[
-            { label: "Home",       href: "#home" },
-            { label: "About",      href: "#about" },
+            { label: "Work",       href: "#projects", active: true },
             { label: "Skills",     href: "#skills" },
-            { label: "Experience", href: "#experience" },
-            { label: "Projects",   href: "#projects" },
-            { label: "Contact",    href: "#contact" },
-          ].map(({ label, href }) => (
+            { label: "Incidents",  href: "#casestudies" },
+            { label: "Journey",    href: "#experience" },
+          ].map(({ label, href, active }) => (
             <a
               key={label}
               href={href}
-              className="relative px-3.5 py-2 rounded-full no-underline transition-colors duration-200 text-slate-400 hover:text-white hover:bg-white/6"
+              className={`relative px-3.5 py-2 rounded-full no-underline transition-colors duration-200 ${
+                active ? "text-white" : "text-slate-400 hover:text-white hover:bg-white/6"
+              }`}
             >
-              {label}
+              {active && (
+                <span className="absolute inset-0 rounded-full bg-white/10 border border-white/10" />
+              )}
+              <span className="relative">{label}</span>
             </a>
           ))}
         </div>
@@ -80,7 +85,7 @@ export default function Navbar() {
         <a
           href="/UmairCV.pdf"
           download="Umair CV.pdf"
-          className="group hidden md:flex items-center gap-2 h-10 px-[18px] ml-2 rounded-full no-underline text-sm font-semibold whitespace-nowrap text-white"
+          className="group flex max-md:hidden items-center gap-2 h-10 px-[18px] ml-2 rounded-full no-underline text-sm font-semibold whitespace-nowrap text-white"
           style={{
             background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
             boxShadow: "0 0 20px rgba(124,58,237,0.35)",
@@ -95,28 +100,16 @@ export default function Navbar() {
           Resume
         </a>
 
-        {/* Get in touch Button — white pill */}
-        <div className="relative hidden md:block">
-          <a
-            href="mailto:mohdumair8896@gmail.com"
-            className="inline-flex items-center gap-1.5 bg-white text-slate-900 font-semibold text-sm px-5 py-2.5 rounded-full no-underline whitespace-nowrap transition-all duration-200 hover:shadow-[0_8px_24px_-8px_rgba(244,244,240,0.4)]"
-          >
-            Get in touch
-            <span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </span>
-          </a>
-        </div>
+        <ContactDropdown />
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button
+          className="md:hidden ml-auto flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-0 cursor-pointer"
           aria-label="Open menu"
-          className="md:hidden ml-auto flex flex-col justify-center gap-[5px] w-10 h-10 bg-transparent border-0 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <span className="block h-[1.5px] w-5 bg-white transition-transform duration-300" />
-          <span className="block h-[1.5px] w-5 bg-white transition-transform duration-300" />
+          <span className={`block h-[1.5px] w-5 bg-white transition-transform duration-300 ${isOpen ? "translate-y-[6.5px] rotate-45" : ""}`} />
+          <span className={`block h-[1.5px] w-5 bg-white transition-transform duration-300 ${isOpen ? "-translate-y-[6.5px] -rotate-45" : ""}`} />
         </button>
 
       </div>

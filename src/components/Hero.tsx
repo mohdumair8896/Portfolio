@@ -56,7 +56,7 @@ export default function Hero() {
           <span className="text-white/30"> · </span>
           <span className="text-violet-400/70">ap-south-1</span>
           <span className="text-white/30"> · </span>
-          <span className="text-white/55">{new Date().toLocaleTimeString("en-US", { hour12: false })} ist</span>
+          <span className="text-white/55" suppressHydrationWarning>{new Date().toLocaleTimeString("en-US", { hour12: false })} IST</span>
         </div>
       </div>
 
@@ -232,7 +232,7 @@ export default function Hero() {
         >
           <div className="inline-block">
             <a
-              href="#projects"
+              href="#experience"
               className="inline-block font-semibold text-[15.5px] px-[34px] py-4 rounded-full no-underline text-white"
               style={{
                 background: "linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)",
