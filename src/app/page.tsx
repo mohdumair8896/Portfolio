@@ -7,11 +7,10 @@ import Projects from "@/components/Projects";
 import CaseStudies from "@/components/CaseStudies";
 import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-8">
       <Navbar />
       <Hero />
       <About />
@@ -21,7 +20,6 @@ export default function Home() {
       <CaseStudies />
       <Certifications />
       <Contact />
-      <Footer />
     </main>
   );
 }
