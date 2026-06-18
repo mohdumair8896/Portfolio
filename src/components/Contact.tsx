@@ -1,90 +1,87 @@
 "use client";
+import { motion } from "framer-motion";
 
 export default function Contact() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    document.getElementById("form-success")?.classList.remove("hidden");
-    (e.target as HTMLFormElement).reset();
-    setTimeout(() => {
-      document.getElementById("form-success")?.classList.add("hidden");
-    }, 5000);
-  };
-
   return (
-    <section id="contact" className="section contact-section">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-tag">Get In Touch</span>
-          <h2 className="section-title">Let&apos;s Connect</h2>
-          <p className="section-subtitle">I&apos;m open to new opportunities, collaborations, and interesting conversations about DevOps and cloud infrastructure.</p>
-        </div>
+    <section id="contact" className="relative z-10 pt-32 pb-10 flex flex-col items-center justify-center text-center font-sans w-full">
+      
+      {/* Top tag */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center justify-center gap-4 text-[10px] md:text-xs font-mono text-slate-500 uppercase tracking-[0.2em] mb-12"
+      >
+        <div className="w-8 h-[1px] bg-slate-700"></div>
+        OPEN TO THE NEXT HARD PROBLEM
+        <div className="w-8 h-[1px] bg-slate-700"></div>
+      </motion.div>
+
+      {/* Large Text */}
+      <motion.h2 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white tracking-tight mb-8 leading-[1.1]"
+      >
+        Let&apos;s build something<br/>
+        <span className="relative inline-block font-serif italic font-normal text-[#e9d5ff] mt-1 px-4">
+          reliable
+          <svg className="absolute w-[120%] h-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 200 80" preserveAspectRatio="none">
+            <ellipse cx="100" cy="40" rx="90" ry="32" fill="none" stroke="#a78bfa" strokeWidth="1.5" className="opacity-80" />
+            <ellipse cx="100" cy="40" rx="90" ry="32" fill="none" stroke="#f3e8ff" strokeWidth="0.5" className="opacity-60" style={{ filter: 'blur(2px)' }} />
+          </svg>
+        </span> <span className="text-white -ml-2">.</span>
+      </motion.h2>
+
+      {/* Description */}
+      <motion.p 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-slate-400 text-sm md:text-base max-w-xl mx-auto leading-relaxed mb-12 px-6"
+      >
+        If it keeps engineers shipping — platforms, reliability, developer<br className="hidden md:block" />
+        experience, AI operations — I&apos;d love to talk about it.
+      </motion.p>
+
+      {/* Buttons */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
+      >
+        <a href="mailto:mohdumair8896@gmail.com" className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#e9d5ff] text-[#3b0764] font-bold text-sm hover:bg-white transition-colors w-full sm:w-auto">
+          <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          mohdumair8896@gmail.com
+        </a>
         
-        <div className="contact-grid">
-          <div className="contact-info">
-            <div className="contact-card">
-              <div className="contact-card-icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
-              </div>
-              <div>
-                <p className="contact-label">Email</p>
-                <a href="mailto:mohdumair8896@gmail.com" className="contact-value">mohdumair8896@gmail.com</a>
-              </div>
-            </div>
-            
-            <div className="contact-card">
-              <div className="contact-card-icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
-              </div>
-              <div>
-                <p className="contact-label">Phone</p>
-                <a href="tel:+918896211006" className="contact-value">+91-8896211006</a>
-              </div>
-            </div>
-            
-            <div className="contact-card">
-              <div className="contact-card-icon linkedin-icon">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </div>
-              <div>
-                <p className="contact-label">LinkedIn</p>
-                <a href="https://www.linkedin.com/in/mohd-umair-shahid" target="_blank" rel="noopener noreferrer" className="contact-value">mohd-umair-shahid</a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="contact-form-wrapper">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="form-name">Your Name</label>
-                  <input type="text" id="form-name" required placeholder="John Doe" />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="form-email">Your Email</label>
-                  <input type="email" id="form-email" required placeholder="john@example.com" />
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="form-subject">Subject</label>
-                <input type="text" id="form-subject" required placeholder="Project collaboration / Job opportunity" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="form-message">Message</label>
-                <textarea id="form-message" rows={5} required placeholder="Tell me about your project or opportunity..."></textarea>
-              </div>
-              <button type="submit" className="btn btn-primary btn-full">
-                <span>Send Message</span>
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              </button>
-              
-              <div id="form-success" className="form-success hidden">
-                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                Message sent! I&apos;ll get back to you soon.
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+        <a href="https://www.linkedin.com/in/mohd-umair-shahid" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-slate-700 bg-[#0a0a14]/50 text-white font-semibold text-sm hover:bg-slate-800 transition-colors w-full sm:w-auto">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        
+        <a href="https://github.com/mohdumair8896" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full border border-slate-700 bg-[#0a0a14]/50 text-white font-semibold text-sm hover:bg-slate-800 transition-colors w-full sm:w-auto">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </motion.div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="text-[10px] md:text-xs font-mono text-slate-500 pb-10"
+      >
+        Remote, India • IST
+      </motion.div>
+
     </section>
   );
 }
