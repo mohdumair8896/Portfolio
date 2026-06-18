@@ -30,34 +30,36 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="relative z-10 py-24 md:py-32 max-w-5xl mx-auto px-6 font-sans">
-      
-      {/* Header */}
-      <div className="mb-20 md:mb-28">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-4 text-[10px] md:text-xs font-mono text-[#a78bfa] uppercase tracking-[0.2em] mb-8"
-        >
-          <div className="w-8 md:w-12 h-[1px] bg-[#a78bfa]/50"></div>
-          The Journey
-        </motion.div>
+    <section id="experience" className="relative z-10 py-24 md:py-32 font-sans w-full flex justify-center">
+      {/* Explicitly centered wrapper box */}
+      <div className="w-full max-w-[1000px] px-6 md:px-12 flex flex-col">
         
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05]"
-        >
-          Executive to <span className="font-serif italic font-normal text-[#e9d5ff]">owning the<br className="hidden md:block" /> infrastructure</span> in two years.
-        </motion.h2>
-      </div>
+        {/* Header */}
+        <div className="mb-20 md:mb-28">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-4 text-[10px] md:text-xs font-mono text-[#a78bfa] uppercase tracking-[0.2em] mb-8"
+          >
+            <div className="w-8 md:w-12 h-[1px] bg-[#a78bfa]/50"></div>
+            The Journey
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05]"
+          >
+            Executive to <span className="font-serif italic font-normal text-[#e9d5ff]">owning the<br className="hidden md:block" /> infrastructure</span> in two years.
+          </motion.h2>
+        </div>
 
-      {/* Timeline Container */}
-      <div className="relative border-l border-slate-800/60 ml-2 md:ml-4 flex flex-col pt-4">
+        {/* Timeline Container */}
+        <div className="relative border-l border-slate-800/60 ml-2 md:ml-4 flex flex-col pt-4">
         
         {experiences.map((exp, index) => (
           <motion.div 
@@ -101,6 +103,7 @@ export default function Experience() {
           </motion.div>
         ))}
 
+        </div>
       </div>
     </section>
   );
