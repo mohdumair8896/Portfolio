@@ -41,24 +41,25 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="section py-20 relative z-10 bg-gradient-to-b from-transparent via-indigo-900/5 to-transparent">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="section-header text-center mb-16">
-          <span className="section-tag inline-block bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">Technical Skills</span>
-          <h2 className="section-title text-3xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">My Tech Stack</h2>
+    <section id="skills" className="section skills-section">
+      <div className="container">
+        <div className="section-header">
+          <span className="section-tag">Technical Skills</span>
+          <h2 className="section-title">My Tech Stack</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat, idx) => (
-            <div key={idx} className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 backdrop-blur-md hover:border-indigo-500/40 hover:-translate-y-1 transition-all shadow-lg hover:shadow-indigo-500/10">
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br ${cat.color} text-white`}>
-                  {cat.icon}
+        
+        <div className="skills-grid">
+          {categories.map((category, idx) => (
+            <div key={idx} className="skill-category">
+              <div className="skill-category-header">
+                <div className="skill-cat-icon">
+                  {category.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-200">{cat.title}</h3>
+                <h3>{category.title}</h3>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {cat.skills.map(skill => (
-                  <span key={skill} className="px-3 py-1.5 bg-slate-950/50 border border-slate-800 rounded-md text-sm text-slate-300 font-medium tracking-wide">
+              <div className="skill-tags">
+                {category.skills.map(skill => (
+                  <span key={skill} className="skill-tag">
                     {skill}
                   </span>
                 ))}
