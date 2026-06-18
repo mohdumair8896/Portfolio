@@ -61,30 +61,26 @@ export default function CaseStudies() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
             >
-              <Card className="bg-slate-900/60 border-slate-800 hover:border-indigo-500/50 transition-all h-full flex flex-col backdrop-blur-md">
-                <CardHeader>
-                  <div className="mb-4 bg-slate-800/50 w-12 h-12 rounded-lg flex items-center justify-center border border-slate-700">
-                    {study.icon}
-                  </div>
-                  <CardTitle className="text-slate-100 text-lg">{study.title}</CardTitle>
-                  <CardDescription className="text-slate-400">{study.description}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col">
-                  <div className="bg-slate-950/50 p-4 rounded-md border border-slate-800/50 mb-6 flex-1">
-                    <p className="text-sm text-slate-300">
-                      <strong className="text-indigo-400 block mb-1">Solution:</strong>
-                      {study.solution}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {study.tags.map(tag => (
-                      <Badge key={tag} variant="secondary" className="bg-slate-800 text-slate-300 hover:bg-slate-700">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="project-card visible h-full flex flex-col">
+                <div className="mb-4 bg-slate-800/50 w-12 h-12 rounded-lg flex items-center justify-center border border-slate-700">
+                  {study.icon}
+                </div>
+                <h3 className="text-slate-100 text-lg font-bold mb-2">{study.title}</h3>
+                <p className="text-slate-400 text-sm mb-6">{study.description}</p>
+                <div className="bg-slate-950/50 p-4 rounded-md border border-slate-800/50 mb-6 flex-1">
+                  <p className="text-sm text-slate-300">
+                    <strong className="text-indigo-400 block mb-1">Solution:</strong>
+                    {study.solution}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {study.tags.map(tag => (
+                    <Badge key={tag} variant="secondary" className="bg-slate-800 text-slate-300 hover:bg-slate-700">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
