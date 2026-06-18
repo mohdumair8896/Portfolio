@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="relative z-10 w-full border-t border-slate-800/50 bg-transparent pt-8 pb-12 font-sans overflow-hidden">
+    <footer className="relative z-10 w-full border-t border-slate-800/50 bg-transparent pt-32 pb-12 font-sans overflow-hidden">
       <div className="w-full max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-[9px] md:text-[10px] font-mono text-slate-500 uppercase tracking-wider relative z-20">
         
         <div className="mb-4 md:mb-0 text-center md:text-left">
