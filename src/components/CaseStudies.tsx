@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ServerCrash, Database, HardDrive, Box, GitMerge } from "lucide-react";
 

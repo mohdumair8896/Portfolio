@@ -155,7 +155,7 @@ export default function Contact() {
 
       {/* Footer bar */}
       <div className="relative max-w-[1280px] mx-auto mt-[100px] pt-7 border-t border-white/8 flex flex-wrap gap-x-6 gap-y-2.5 justify-between font-mono text-[11.5px] text-slate-500">
-        <span>© {new Date().getFullYear()} Mohd Umair Shahid · release v1.0 — shipped from Remote, India</span>
+        <span>© {new Date().getFullYear()} Mohd Umair Shahid</span>
         <span className="inline-flex items-center gap-2">
           <span
             className="w-1.5 h-1.5 rounded-full bg-emerald-500"

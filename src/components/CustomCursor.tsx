@@ -7,91 +7,136 @@ export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only run on desktop devices with a fine pointer (mouse / trackpad)
+    if (typeof window === "undefined" || !window.matchMedia("(pointer: fine)").matches) {
+      return;
+    }
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) return;
 
-    if ("ontouchstart" in window) {
-      dot.style.display = "none";
-      ring.style.display = "none";
-      return;
-    }
-
-    let mouseX = -100, mouseY = -100;
-    let ringX = -100, ringY = -100;
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+    let isVisible = false;
+    let isHovered = false;
+    let isClicked = false;
     let rafId: number;
+
+    const updateVisibility = (visible: boolean) => {
+      isVisible = visible;
+      const opacity = visible ? "1" : "0";
+      dot.style.opacity = opacity;
+      ring.style.opacity = opacity;
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      dot.style.left = `${mouseX}px`;
-      dot.style.top = `${mouseY}px`;
+
+      if (!isVisible) {
+        updateVisibility(true);
+        // Instantly sync initial ring position so it doesn't fly across screen
+        ringX = mouseX;
+        ringY = mouseY;
+      }
+
+      // Dot moves instantly with mouse (zero lag, GPU accelerated)
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) scale(${
+        isClicked ? 0.75 : isHovered ? 1.4 : 1
+      })`;
     };
 
+    // Smooth spring physics for outer ring
     const animateRing = () => {
-      const lerp = 0.12;
-      ringX += (mouseX - ringX) * lerp;
-      ringY += (mouseY - ringY) * lerp;
-      ring.style.left = `${ringX}px`;
-      ring.style.top = `${ringY}px`;
+      const ease = 0.18; // snappy, smooth response
+      ringX += (mouseX - ringX) * ease;
+      ringY += (mouseY - ringY) * ease;
+
+      const scale = isClicked ? 0.7 : isHovered ? 1.5 : 1;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${scale})`;
+
       rafId = requestAnimationFrame(animateRing);
     };
 
-    const handleMouseEnterInteractive = () => document.body.classList.add("cursor-hover");
-    const handleMouseLeaveInteractive = () => document.body.classList.remove("cursor-hover");
-    const handleMouseDown = () => document.body.classList.add("cursor-click");
-    const handleMouseUp = () => document.body.classList.remove("cursor-click");
-    
-    const handleMouseLeaveWindow = () => {
-      dot.style.opacity = "0";
-      ring.style.opacity = "0";
+    const isInteractive = (target: Element | null): boolean => {
+      if (!target) return false;
+      return Boolean(
+        target.closest(
+          'a, button, [role="button"], input, textarea, select, label, .project-card, .skill-tag, .achievement-card, .cert-card, .footer-links a, .footer-socials a, [data-cursor-hover]'
+        )
+      );
     };
-    const handleMouseEnterWindow = () => {
-      dot.style.opacity = "1";
-      ring.style.opacity = "1";
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    animateRing();
-
-    // Event delegation for interactive elements
-    const interactiveSelectors = [
-      "a", "button", "input", "textarea", "label",
-      ".btn", ".btn-resume", ".btn-download", ".nav-link",
-      ".project-card", ".cert-card", ".achievement-card",
-      ".social-link", ".contact-card", ".skill-tag",
-      ".back-to-top", '[role="button"]'
-    ].join(",");
 
     const handleMouseOver = (e: MouseEvent) => {
-      if ((e.target as Element).closest(interactiveSelectors)) {
-        handleMouseEnterInteractive();
-      } else {
-        handleMouseLeaveInteractive();
+      const interactive = isInteractive(e.target as Element);
+      if (interactive !== isHovered) {
+        isHovered = interactive;
+        if (isHovered) {
+          document.body.classList.add("cursor-hover");
+        } else {
+          document.body.classList.remove("cursor-hover");
+        }
       }
     };
 
-    document.addEventListener("mouseover", handleMouseOver);
-    document.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mouseup", handleMouseUp);
-    document.addEventListener("mouseleave", handleMouseLeaveWindow);
-    document.addEventListener("mouseenter", handleMouseEnterWindow);
+    const handleMouseDown = () => {
+      isClicked = true;
+      document.body.classList.add("cursor-click");
+    };
+
+    const handleMouseUp = () => {
+      isClicked = false;
+      document.body.classList.remove("cursor-click");
+    };
+
+    const handleMouseLeave = () => {
+      updateVisibility(false);
+    };
+
+    const handleMouseEnter = () => {
+      updateVisibility(true);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    window.addEventListener("mouseup", handleMouseUp, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
+    window.addEventListener("blur", handleMouseLeave);
+
+    rafId = requestAnimationFrame(animateRing);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener("blur", handleMouseLeave);
       cancelAnimationFrame(rafId);
-      document.removeEventListener("mouseover", handleMouseOver);
-      document.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("mouseleave", handleMouseLeaveWindow);
-      document.removeEventListener("mouseenter", handleMouseEnterWindow);
+      document.body.classList.remove("cursor-hover", "cursor-click");
     };
   }, []);
 
   return (
     <>
-      <div id="cursor-dot" ref={dotRef} className="cursor-dot"></div>
-      <div id="cursor-ring" ref={ringRef} className="cursor-ring"></div>
+      <div
+        id="cursor-dot"
+        ref={dotRef}
+        aria-hidden="true"
+        className="cursor-dot"
+      />
+      <div
+        id="cursor-ring"
+        ref={ringRef}
+        aria-hidden="true"
+        className="cursor-ring"
+      />
     </>
   );
 }

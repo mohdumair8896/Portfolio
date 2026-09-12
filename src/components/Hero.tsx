@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const WORDS = ["I", "build", "the"];
 
@@ -47,16 +47,6 @@ export default function Hero() {
         <div className="absolute right-5 bottom-4 flex items-center gap-2.5">
           <span className="text-slate-400">deploying ▸ {scrollPct}%</span>
           <span className="block w-3 h-3 border-r border-b border-white/25 -mb-1.5" />
-        </div>
-        <div
-          className="absolute right-4 top-1/2 -translate-y-1/2 origin-center whitespace-nowrap text-[10px] tracking-[0.32em]"
-          style={{ writingMode: "vertical-rl", transform: "translateY(-50%) rotate(90deg)" }}
-        >
-          <span className="text-white/55">mohdumair@prod</span>
-          <span className="text-white/30"> · </span>
-          <span className="text-violet-400/70">ap-south-1</span>
-          <span className="text-white/30"> · </span>
-          <span className="text-white/55" suppressHydrationWarning>{new Date().toLocaleTimeString("en-US", { hour12: false })} IST</span>
         </div>
       </div>
 
@@ -151,7 +141,7 @@ export default function Hero() {
           </span>
           <span className="text-white font-semibold">Engineer</span>
           <span className="hidden sm:block w-px h-4 bg-white/15 mx-1" aria-hidden="true" />
-          <span className="text-slate-400 font-medium">@ Akal Info Sys</span>
+          <span className="text-slate-400 font-medium">@ NIC (National Informatics Centre)</span>
           <span className="text-slate-500">·</span>
           <span className="text-slate-400 font-medium">2+ yrs</span>
         </motion.div>

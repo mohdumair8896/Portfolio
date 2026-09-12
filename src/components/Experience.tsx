@@ -5,26 +5,34 @@ export default function Experience() {
   const experiences = [
     {
       id: 1,
-      date: "2026 — now",
-      company: "akal info sys",
+      date: "May 2026 – Present",
+      company: "NIC (National Informatics Centre)",
       title: "DevOps Engineer",
       description: "Own production operations for the Department of Agriculture (Agridarshan Portal). Automated end-to-end CI/CD workflows using Azure DevOps and Jenkins. Scaled and managed containerized workloads using Docker, Terraform, and Ansible. Established enterprise monitoring with Prometheus, Grafana, and Azure Monitor.",
       active: true,
     },
     {
       id: 2,
-      date: "2025 — 2025",
-      company: "hcltech",
+      date: "May 2025 – Oct 2025",
+      company: "HCLTech (Project: Verizon)",
       title: "Senior Analyst",
       description: "Managed DevOps operations, CI/CD pipelines, and monitoring for Verizon enterprise applications. Implemented Infrastructure as Code using Terraform and Ansible, and configured Prometheus and Grafana dashboards for proactive monitoring.",
       active: false,
     },
     {
       id: 3,
-      date: "2024 — 2025",
-      company: "startek",
+      date: "Apr 2024 – Apr 2025",
+      company: "Startek (Project: Flipkart)",
       title: "Executive — Operations",
       description: "Delivered operational support for Flipkart's cloud and on-premise systems. Coordinated the implementation of automation scripts and developed basic CI/CD workflows for in-house applications.",
+      active: false,
+    },
+    {
+      id: 4,
+      date: "May 2022 – Nov 2022",
+      company: "Pristyn Care",
+      title: "Intern – Operations",
+      description: "Assisted in managing containerized environments with Docker and Kubernetes. Supported monitoring setup using ELK stack and Grafana for real-time performance visibility. Contributed to scripting automation for daily operations (Python, Bash). Documented operational workflows and deployment guides for internal use.",
       active: false,
     }
   ];
@@ -44,7 +52,7 @@ export default function Experience() {
             className="flex items-center gap-4 text-[10px] md:text-xs font-mono text-[#a78bfa] uppercase tracking-[0.2em] mb-8"
           >
             <div className="w-8 md:w-12 h-[1px] bg-[#a78bfa]/50"></div>
-            The Journey
+            Work
           </motion.div>
           
           <motion.h2 
@@ -79,13 +87,13 @@ export default function Experience() {
               }`}
             ></div>
             
-            <div className="flex flex-col md:flex-row gap-2 md:gap-16">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-14">
               {/* Left Col (Date & Company) */}
-              <div className="md:w-32 shrink-0 flex flex-col md:pt-1">
-                <span className={`text-xs md:text-sm font-mono mb-1 ${exp.active ? "text-[#a78bfa]" : "text-slate-400"}`}>
+              <div className="md:w-48 shrink-0 flex flex-col md:pt-1">
+                <span className={`text-xs md:text-sm font-mono mb-1.5 font-medium ${exp.active ? "text-[#a78bfa]" : "text-slate-400"}`}>
                   {exp.date}
                 </span>
-                <span className="text-[10px] md:text-xs font-mono text-slate-600 lowercase tracking-wider">
+                <span className="text-[11px] md:text-xs font-mono text-slate-400 tracking-wide font-medium leading-tight">
                   {exp.company}
                 </span>
               </div>

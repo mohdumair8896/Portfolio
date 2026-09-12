@@ -1,5 +1,3 @@
-import { Badge } from "./ui/badge";
-
 export default function About() {
   return (
     <section id="about" className="section about-section relative z-10">
@@ -17,7 +15,7 @@ export default function About() {
               With over <strong>2 years of hands-on experience</strong>, I specialize in bridging the gap between development and operations — automating CI/CD pipelines, managing containerized workloads, and implementing enterprise-grade monitoring solutions.
             </p>
             <p className="text-slate-400 mb-6 leading-relaxed">
-              I&apos;ve worked on major enterprise projects at <strong>Akal Information Systems</strong> and <strong>HCLTech</strong>, handling mission-critical infrastructure for clients like Verizon and the Department of Agriculture. My achievements include a <strong>Rank 48 Worldwide</strong> in Oracle&apos;s Race to Certification.
+              I&apos;ve worked on major enterprise projects at <strong>NIC (National Informatics Centre)</strong> and <strong>HCLTech</strong>, handling mission-critical infrastructure for clients like Verizon and the Department of Agriculture. My achievements include a <strong>Rank 48 Worldwide</strong> in Oracle&apos;s Race to Certification.
             </p>
             <div className="about-info flex flex-col gap-3 mt-8">
               <div className="flex items-center gap-3 text-slate-300">

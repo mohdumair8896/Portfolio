@@ -1,5 +1,3 @@
-import { Badge } from "./ui/badge";
-
 export default function Skills() {
   const categories = [
     {

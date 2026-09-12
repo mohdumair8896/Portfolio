@@ -1,17 +1,73 @@
 "use client";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import ContactDropdown from "./ContactDropdown";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const isClickScrolling = useRef(false);
+
+  const navItems = [
+    { label: "Projects",   href: "#projects" },
+    { label: "Skills",     href: "#skills" },
+    { label: "Incidents",  href: "#casestudies" },
+    { label: "Work",       href: "#experience" },
+  ];
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
+    if (typeof window !== "undefined" && window.location.hash) {
+      setActiveSection(window.location.hash);
+    }
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+      if (isClickScrolling.current) return;
+
+      // If at the top of the page, clear active indicator
+      if (window.scrollY < 400) {
+        setActiveSection("");
+        return;
+      }
+
+      // DOM order: skills -> experience (work) -> projects -> casestudies (incidents)
+      const sections = [
+        { id: "#skills", el: document.querySelector("#skills") as HTMLElement | null },
+        { id: "#experience", el: document.querySelector("#experience") as HTMLElement | null },
+        { id: "#projects", el: document.querySelector("#projects") as HTMLElement | null },
+        { id: "#casestudies", el: document.querySelector("#casestudies") as HTMLElement | null },
+      ];
+
+      const scrollPos = window.scrollY + 220;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const item = sections[i];
+        if (item.el && item.el.offsetTop <= scrollPos) {
+          setActiveSection(item.id);
+          return;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setActiveSection(href);
+    isClickScrolling.current = true;
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", href);
+    }
+    setTimeout(() => {
+      isClickScrolling.current = false;
+    }, 850);
+  };
 
   return (
     <nav
@@ -58,27 +114,30 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Center Nav Links */}
+        {/* Center Nav Links with dynamic active state & animated indicator */}
         <div className="flex max-md:hidden gap-1 ml-auto text-[14.5px]">
-          {[
-            { label: "Work",       href: "#projects", active: true },
-            { label: "Skills",     href: "#skills" },
-            { label: "Incidents",  href: "#casestudies" },
-            { label: "Journey",    href: "#experience" },
-          ].map(({ label, href, active }) => (
-            <a
-              key={label}
-              href={href}
-              className={`relative px-3.5 py-2 rounded-full no-underline transition-colors duration-200 ${
-                active ? "text-white" : "text-slate-400 hover:text-white hover:bg-white/6"
-              }`}
-            >
-              {active && (
-                <span className="absolute inset-0 rounded-full bg-white/10 border border-white/10" />
-              )}
-              <span className="relative">{label}</span>
-            </a>
-          ))}
+          {navItems.map(({ label, href }) => {
+            const isActive = activeSection === href;
+            return (
+              <a
+                key={label}
+                href={href}
+                onClick={(e) => handleNavClick(e, href)}
+                className={`relative px-3.5 py-2 rounded-full no-underline transition-colors duration-200 ${
+                  isActive ? "text-white font-medium" : "text-slate-400 hover:text-white hover:bg-white/6"
+                }`}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavPill"
+                    className="absolute inset-0 rounded-full bg-white/10 border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.08)] pointer-events-none"
+                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                  />
+                )}
+                <span className="relative z-10">{label}</span>
+              </a>
+            );
+          })}
         </div>
 
         {/* Resume Button — gradient pill */}
@@ -113,6 +172,38 @@ export default function Navbar() {
         </button>
 
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <div
+          className="md:hidden border-b border-white/10 px-6 py-4 flex flex-col gap-2"
+          style={{
+            background: "rgba(10, 10, 15, 0.97)",
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          {navItems.map(({ label, href }) => {
+            const isActive = activeSection === href;
+            return (
+              <a
+                key={label}
+                href={href}
+                onClick={(e) => {
+                  handleNavClick(e, href);
+                  setIsOpen(false);
+                }}
+                className={`px-4 py-2.5 rounded-lg text-sm transition-colors no-underline ${
+                  isActive
+                    ? "bg-white/10 text-white border border-white/10 font-medium"
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }

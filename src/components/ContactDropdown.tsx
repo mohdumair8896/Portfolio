@@ -61,9 +61,10 @@ export default function ContactDropdown() {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <a
-        href="mailto:mohdumair8896@gmail.com"
-        className="inline-flex items-center gap-1.5 font-semibold text-sm px-5 py-2.5 rounded-full no-underline whitespace-nowrap transition-all duration-200 hover:shadow-[0_8px_24px_-8px_rgba(255,255,255,.4)]"
+      <button
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="inline-flex items-center gap-1.5 font-semibold text-sm px-5 py-2.5 rounded-full no-underline whitespace-nowrap transition-all duration-200 hover:shadow-[0_8px_24px_-8px_rgba(255,255,255,.4)] cursor-pointer"
         style={{ color: "#000000", backgroundColor: "#ffffff" }}
       >
         Get in touch
@@ -72,7 +73,7 @@ export default function ContactDropdown() {
             <path d="m6 9 6 6 6-6" />
           </svg>
         </span>
-      </a>
+      </button>
 
       <AnimatePresence>
         {isOpen && (
@@ -81,7 +82,7 @@ export default function ContactDropdown() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-[calc(100%+12px)] right-0 w-[240px] bg-white/95 backdrop-blur-xl border border-black/5 rounded-[20px] p-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.12)] z-50"
+            className="absolute top-[calc(100%+12px)] right-0 w-[240px] bg-white/95 backdrop-blur-xl border border-black/5 rounded-[20px] p-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.12)] z-50 before:content-[''] before:absolute before:-top-4 before:left-0 before:right-0 before:h-4"
           >
             <div className="flex flex-col gap-[2px]">
               {links.map((link) => {
@@ -107,6 +108,7 @@ export default function ContactDropdown() {
                   <a
                     key={link.label}
                     href={link.href}
+                    onClick={() => setIsOpen(false)}
                     target={link.label !== "Email" ? "_blank" : undefined}
                     rel={link.label !== "Email" ? "noopener noreferrer" : undefined}
                     className="flex items-center gap-3.5 p-2.5 rounded-xl hover:bg-black/5 transition-colors duration-200 no-underline group"
