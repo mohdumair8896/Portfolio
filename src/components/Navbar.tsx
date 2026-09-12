@@ -89,7 +89,7 @@ export default function Navbar() {
           </span>
           <span
             className="group hidden sm:inline-flex items-baseline leading-none cursor-default select-none"
-            title="DevOps & Cloud Engineer 🚀"
+            title="DevOps Engineer 🚀"
           >
             <span
               className="text-[12px] leading-none mr-1.5 transition-transform duration-300 group-hover:scale-125"
@@ -100,16 +100,8 @@ export default function Navbar() {
             >
               ☁️
             </span>
-            <span className="inline-flex items-baseline overflow-hidden">
-              <span
-                className="font-serif italic text-[15px] max-w-0 opacity-0 whitespace-nowrap transition-all duration-500 ease-[cubic-bezier(.2,.8,.3,1)] group-hover:max-w-[60px] group-hover:opacity-100 group-hover:mr-1.5"
-                style={{ color: "rgb(167,139,250)" }}
-              >
-                builder
-              </span>
-              <span className="font-serif italic text-[15px] text-slate-400 transition-colors duration-300 group-hover:text-white">
-                SRE
-              </span>
+            <span className="font-serif italic text-[15px] text-slate-400 transition-colors duration-300 group-hover:text-white">
+              DevOps Engineer
             </span>
           </span>
         </a>
